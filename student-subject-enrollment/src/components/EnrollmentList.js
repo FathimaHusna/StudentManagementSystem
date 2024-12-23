@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { fetchEnrollments, deleteEnrollment, updateEnrollment } from "../services/api";
+import {
+  fetchEnrollments,
+  deleteEnrollment,
+  updateEnrollment,
+} from "../services/api";
 
 export default function EnrollmentList() {
   const [enrollments, setEnrollments] = useState([]);
@@ -25,7 +29,9 @@ export default function EnrollmentList() {
   const handleDelete = async (id) => {
     try {
       await deleteEnrollment(id);
-      setEnrollments(enrollments.filter((enrollment) => enrollment.enrollmentID !== id));
+      setEnrollments(
+        enrollments.filter((enrollment) => enrollment.enrollmentID !== id)
+      );
       alert("Enrollment deleted successfully.");
     } catch (error) {
       console.error("Error deleting enrollment:", error);
@@ -37,7 +43,9 @@ export default function EnrollmentList() {
     setEditingEnrollment(enrollment); // Set the enrollment being edited
     setStudentName(enrollment.students); // Set the current student name
     setSubjectName(enrollment.subjects); // Set the current subject name
-    setEnrollmentDate(new Date(enrollment.enrollmentDate).toISOString().slice(0, 19)); // Set the current enrollment date
+    setEnrollmentDate(
+      new Date(enrollment.enrollmentDate).toISOString().slice(0, 19)
+    ); // Set the current enrollment date
   };
 
   const handleSave = async () => {
@@ -54,7 +62,9 @@ export default function EnrollmentList() {
       await updateEnrollment(editingEnrollment.enrollmentID, updatedEnrollment);
       setEnrollments(
         enrollments.map((enrollment) =>
-          enrollment.enrollmentID === editingEnrollment.enrollmentID ? updatedEnrollment : enrollment
+          enrollment.enrollmentID === editingEnrollment.enrollmentID
+            ? updatedEnrollment
+            : enrollment
         )
       );
       alert("Enrollment updated successfully.");
@@ -87,15 +97,26 @@ export default function EnrollmentList() {
                   <strong>{enrollment.students}</strong> enrolled in{" "}
                   <strong>{enrollment.subjects}</strong>
                   <div className="mt-2 text-muted">
-                    <small>Enrollment Date: {new Date(enrollment.enrollmentDate).toLocaleString()}</small>
+                    <small>
+                      Enrollment Date:{" "}
+                      {new Date(enrollment.enrollmentDate).toLocaleString()}
+                    </small>
                   </div>
                 </div>
                 <button
                   className="btn btn-primary btn-sm"
+                  style={{
+                    position: "absolute",
+                    bottom: "10px",
+                    right: "200px",
+                    minWidth: "100px",
+                    whiteSpace: "nowrap",
+                  }}
                   onClick={() => handleEdit(enrollment)} // Edit button
                 >
                   Edit
                 </button>
+
                 <button
                   className="btn btn-danger btn-sm"
                   onClick={() => handleDelete(enrollment.enrollmentID)}
@@ -110,7 +131,12 @@ export default function EnrollmentList() {
 
       {/* Edit Enrollment Modal */}
       {editingEnrollment && (
-        <div className="modal show" tabIndex="-1" role="dialog" style={{ display: "block" }}>
+        <div
+          className="modal show"
+          tabIndex="-1"
+          role="dialog"
+          style={{ display: "block" }}
+        >
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">

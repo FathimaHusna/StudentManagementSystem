@@ -18,9 +18,7 @@ export default function HomePage() {
             <Link to="/enrollment-list" className="btn btn-secondary btn-lg mx-3">
               View Enrollments
             </Link>
-            <Link to="/update-enrollment" className="btn btn-warning btn-lg mx-3">
-              Update Enrollment
-            </Link>
+            
           </div>
         </div>
       </section>
